@@ -30,11 +30,11 @@ function start() {
     choices: [
       "Add employee",
       "Add department",
-      "Add position",
+      "Add role",
       "View by employee",
       "View by department",
-      "View by position",
-      "Update employee position",
+      "View by role",
+      "Update employee role",
       "Quit"
     ]
   }
@@ -46,8 +46,8 @@ function start() {
     case "Add department":
       addDepartment();
       break;
-    case "Add position":
-      addPosition();
+    case "Add role":
+      addRole();
       break;
     case "View employee":
       viewEmployee();
@@ -55,11 +55,11 @@ function start() {
     case "View department":
       viewDepartment();
       break;
-    case "View position":
-      viewPosition();
+    case "View role":
+      viewRole();
       break;
-    case "Update employee position":
-      updateEmpPos();
+    case "Update employee role":
+      updateEmpRole();
       break;
     case "Quit":
       db.end();
@@ -103,11 +103,11 @@ function addDepartment() {
     .prompt({
       name: "addDepartment",
       type: "input",
-      name: "department_name",
+      name: "department_id",
       message: "What is the new department name?"
     })
   .then(function(answer) {
-    let newDepartment = answer.department_name;
+    let newDepartment = answer.department_id;
 
     db.query("INSERT INTO department SET ?", newDepartment, (err) => {
       if(err) {
@@ -130,9 +130,9 @@ function addEmployee() {
     });
   
   db.query(
-    "select * from position", (err, emPos) => {
-      const positions = positionRes.map((position) => {
-        return position.title;
+    "select * from roles", (err, emPos) => {
+      const roles = roleRes.map((role) => {
+        return role.title;
       });
     });
 
@@ -151,9 +151,9 @@ function addEmployee() {
     },
     {
       type: "list",
-      message: "Please choose the new employees position.",
-      name: "position_id",
-      choices: positions
+      message: "Please choose the new employees role.",
+      name: "role_id",
+      choices: roles
     }
     ]).then((res) => {
       const { first_name, last_name } = res;
@@ -164,12 +164,12 @@ function addEmployee() {
 
 
 
-  function addPosition() {
+  function addRole() {
     inquirer
       .prompt({
-        name: "addPosition",
+        name: "addRole",
         type: "input",
-        message: "Which position would you like to add? Please enter the new title."
+        message: "Which role would you like to add? Please enter the new title."
       })
     .then(function () {
 

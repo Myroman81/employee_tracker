@@ -70,7 +70,7 @@ function start() {
 })
 
 };
-function viewAllEmployees() {
+function viewEmployee() {
   db.query("SELECT * FROM employees;",
     function (err, res) {
       if (err) throw err
